@@ -1,5 +1,6 @@
 import React from 'react';
-import {
+import
+{
   SafeAreaView,
   View,
   FlatList,
@@ -23,17 +24,26 @@ const DATA = [
   },
   {
     id: '58694a0f-3da1--bd96-145571e29d72',
-    title: 'fORT Item',
-  }
+    title: 'forth Item',
+  },
+  {
+    id: '58694a0f-3da1--bd93-145571e29d72',
+    title: 'fift Item',
+  },
 ];
 
-const Item = ({ title }) => (
+type Item = {
+  title: string
+};
+
+const Item = ({ title }: Item) => (
   <View style={styles.item}>
     <Text style={styles.title}>{title}</Text>
   </View>
 );
 
-const App = () => {
+const App = () =>
+{
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
