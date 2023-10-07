@@ -19,21 +19,14 @@ const DATA = [
     title: 'Second Item',
   },
   {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    title: 'Third Item',
+    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f65',
+    title: 'Second Item',
   },
   {
-    id: '58694a0f-3da1--bd96-145571e29d72',
-    title: 'forth Item',
+    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f67',
+    title: 'Second Item',
   },
-  {
-    id: '58694a0f-3da1--bd93-145571e29d72',
-    title: 'fift Item',
-  },
-  {
-    id: '58694a0f-3da1--bd93-145571e29d734',
-    title: '6th Item',
-  },
+
 ];
 
 type Item = {
