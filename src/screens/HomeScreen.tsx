@@ -1,23 +1,90 @@
-import * as React from 'react';
-import { Button, View, Text } from 'react-native';
 
-function HomeScreen({ navigation }: {navigation:any}) {
+import React from "react";
+import { StyleSheet, View } from "react-native";
+import Animated, { useAnimatedGestureHandler, useAnimatedStyle, useSharedValue, withSpring } from "react-native-reanimated";
+import { PanGestureHandler } from 'react-native-gesture-handler';
+
+const SIZE = 80;
+const CIRCLE_RADIUS = SIZE * 2;
+
+
+function HomeScreen() {
+
+    const translationX = useSharedValue(0);
+    const translationY = useSharedValue(0);
+
+    const panGestureEvent = useAnimatedGestureHandler({
+        onStart: (event : any, context :any) => {
+            context.translateX = translationX.value;
+            context.translateY = translationY.value;
+        },
+        onActive: (event: any, context: any ) => {
+            translationX.value = event.translationX + context.translateX;
+            translationY.value = event.translationY + context.translateY;
+        },
+        onEnd: () => {
+            translationX.value = withSpring(0);
+            translationY.value = withSpring(0);
+        },
+    });
+
+    const rStyle = useAnimatedStyle(() => {
+        return {
+            transform: [
+                { translateX: translationX.value },
+                { translateY: translationY.value }
+            ]
+        };
+    });
+
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Text>Home Screen</Text>
-            <Button
-                title="Go to Details"
-                onPress={() => {
-                    /* 1. Navigate to the Details route with params */
-                    navigation.navigate('Details', {
-                        itemId: 86,
-                        otherParam: 'anything you want here',
-                    });
-                }}
-            />
+        <View style={styles.container}>
+            <View style={styles.circle}>
+                <PanGestureHandler onGestureEvent={panGestureEvent} >
+                    <Animated.View style={[styles.square, rStyle]} />
+                </PanGestureHandler>
+            </View>
         </View>
+   
     );
 }
 
-
 export default HomeScreen;
+
+const styles = StyleSheet.create({
+
+    container: {
+        flex: 1,
+        textAlign: 'center',
+        justifyContent: 'center' 
+    },
+    square: {
+        height: SIZE,
+        width: SIZE,
+        backgroundColor: "tomato",
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: 20
+    },
+    circle: {
+        height: CIRCLE_RADIUS * 2,
+        width: CIRCLE_RADIUS * 2,
+        borderRadius: CIRCLE_RADIUS,
+        justifyContent: "center",
+        alignItems: "center",
+        borderWidth: 4,
+        borderColor: "tomato",
+    }
+
+});
+
+
+
+
+
+
+// const PangestureHandler = () => {
+
+
+//     );
+// }
